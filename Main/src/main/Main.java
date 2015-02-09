@@ -37,15 +37,15 @@ import java.awt.event.*;
 
 public class Main {
   private static BinarySearchTree<Integer> root = new BinarySearchTree<>();
-  private final static  int NTHREADS = 20;
+  private final static  int NTHREADS = 50;
   
   public static final void main(String[] args) throws IOException {
     String name = "main";
     
     //create the thread pool with dynamic number of threads
-    ExecutorService executor = Executors.newFixedThreadPool(NTHREADS);
+    ExecutorService executor = Executors.newCachedThreadPool();
     //create and execute NTHREAD
-    for(int i =0; i<100; i++){
+    for(int i =0; i<NTHREADS; i++){
         executor.execute(new AddNode());
     }
     //no more threads created
