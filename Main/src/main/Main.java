@@ -50,7 +50,7 @@ public class Main extends Application{
   public static long addTime = 0 ;
     
     
- @Override public void start(Stage stage) {
+ public void start(Stage stage) {
         stage.setTitle("Line Chart Sample");
         //defining the axes
         final NumberAxis xAxis = new NumberAxis();

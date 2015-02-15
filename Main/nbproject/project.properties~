@@ -10,7 +10,7 @@ build.classes.excludes=**/*.java,**/*.form
 # This directory is removed when the project is cleaned:
 build.dir=build
 build.generated.dir=${build.dir}/generated
-build.generated.sources.dir=${build.dir}/generated-s
+build.generated.sources.dir=${build.dir}/generated-sources
 # Only compile against the classpath explicitly listed here:
 build.sysclasspath=ignore
 build.test.classes.dir=${build.dir}/test/classes
@@ -35,8 +35,8 @@ javac.compilerargs=
 javac.deprecation=false
 javac.processorpath=\
     ${javac.classpath}
-javac.source=1.8
-javac.target=1.8
+javac.source=1.7
+javac.target=1.7
 javac.test.classpath=\
     ${javac.classpath}:\
     ${build.classes.dir}
