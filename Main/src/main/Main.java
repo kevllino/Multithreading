@@ -47,11 +47,14 @@ public class Main extends Application{
     
   public static final BinarySearchTree<Integer> root = new BinarySearchTree<>();
   public final static int NTHREADS = 50;   
-  static long addTime = 0 ;
+
+
+  public static long addTime = 0 ; 
     
     //Création du graphe
  @Override public void start(Stage stage) {
-     
+    
+
         stage.setTitle("Line Chart Sample");
         //defining the axes
         final NumberAxis xAxis = new NumberAxis();
@@ -88,6 +91,7 @@ public class Main extends Application{
    
 
     public static final void main(String[] args) throws IOException {
+        
         String name = "main";
         ui scene = new ui();
         scene.StartUi();
@@ -99,8 +103,17 @@ public class Main extends Application{
        
         for (int i = 0; i < NTHREADS; i++) {
             k++;
+             long startTime = System.nanoTime();
             executor.execute(new AddNode());
+            long endTime = System.nanoTime();
+            long delay = endTime - startTime;
+            addTime += delay;
+            //display delay  
         }
+        addTime /= addTime / NTHREADS; 
+        
+        //average add time against NTHREADS
+         System.out.println("Time to add a node: " + addTime * Math.pow(10, -9) + " seconds.");
         //no more threads created
         executor.shutdown();*/
 
@@ -134,14 +147,10 @@ public class Main extends Application{
         //private Timer timer = new Timer(1000, new TimerListener());
         @Override
         public void run() {
-            long startTime = System.nanoTime();
+           
             root.add((int) (100 * Math.random()));
             //stop timerstartTime = System.nanoTime();
-            long endTime = System.nanoTime();
-            long delay = endTime - startTime;
-            addTime += delay;
-            //display delay
-            System.out.println("Time to add a node: " + delay * Math.pow(10, -9) + " seconds.");
+            
 
         }
 
