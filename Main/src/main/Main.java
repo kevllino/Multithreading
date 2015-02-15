@@ -42,6 +42,8 @@ import javafx.application.Application;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import static main.ui.average;
+import static main.ui.nbthread;
 
 public class Main extends Application{
     
@@ -75,9 +77,14 @@ public class Main extends Application{
         
         //Rajoute des points. Nombre de Threads en abscisse et temps d'ajout total en ordonnée
         
-        series.getData().add(new XYChart.Data(NTHREADS, addTime*Math.pow(10, -9)));
+         series.getData().add(new XYChart.Data(0, 0));
+         //Création du grpahe en fonction des données récupérees
+        for(int i = 0;i<average.length;i++){
         
+       
+        series.getData().add(new XYChart.Data(nbthread[i], average[i]));
         
+        }
         
         
         Scene scene  = new Scene(lineChart,800,600);

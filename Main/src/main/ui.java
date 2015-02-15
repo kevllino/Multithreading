@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.Main.AddNode;
 import static main.Main.NTHREADS;
+import static main.Main.addTime;
 /**
  *
  * @author slou
@@ -25,6 +26,8 @@ import static main.Main.NTHREADS;
 public class ui extends Application {
     private int nbWords ;
     private int nbThreads ;
+    public static int[] nbthread ; //Tableau du nombre de threads
+     public static long[] average ; //Tableau des moyennes
   
     
     public int getNbWords(){
@@ -84,26 +87,40 @@ public class ui extends Application {
                 label.setText(nbWords.getText() + " words with " + nbThreads.getText() + " threads.");
                 this.nbThreads = Integer.parseInt(nbThreads.getText());
                 this.nbWords = Integer.parseInt(nbWords.getText());
-                
-               
-                 
-                //create and execute NTHREAD
-                int k = 0;
-
+              
+                //On ajoute les mots en fonction du nombre de threads
                 for (int i = 0; i < this.nbThreads; i++) {
                     
                     //create the thread pool with dynamic number of threads
                  ExecutorService executor = Executors.newFixedThreadPool(i+1);
+                    for(int j =0;j<this.nbWords;j++){
+                     long startTime = System.nanoTime();
+                     executor.execute(new AddNode());
+                     long endTime = System.nanoTime();
+                     long delay = endTime - startTime;
+                     addTime += delay;        
+                       //no more threads created
                     
-                    for(int j =0;j<this.nbWords;j++)
-                    executor.execute(new AddNode());
-                    
-                    //no more threads created
-                executor.shutdown();
+                    }
+                    executor.shutdown();
+                    //average add time against NTHREADS
+                     System.out.println("Total adding node: " + addTime * Math.pow(10, -9) + " seconds.");
+                    //display delay  
+                     addTime /= (long) this.nbThreads; 
+                     System.out.println("Le résultat vaut "+addTime* Math.pow(10, -9));
+                     
+                     //On stocke les résultats dans un tableau
+                      average[i] = (long) (addTime * Math.pow(10, -9)); //Stockage des moyennes
+                      nbthread[i] = i+1;//Stockage du nombre de Threads
+      
                 
                 }
                 
-
+                
+              System.out.println("Voici les résulats :\n Moyenne : ");
+              for(int i=0;i<average.length;i++)
+                  System.out.println("Numéro" +i+ average[i]+"\n");
+                
                 
                 
                 
