@@ -48,6 +48,7 @@ public class Main extends Application{
   private static final BinarySearchTree<Integer> root = new BinarySearchTree<>();
   public final static int NTHREADS = 50;   
   public static long addTime = 0 ;
+  
     
     
  public void start(Stage stage) {
@@ -90,8 +91,11 @@ public class Main extends Application{
    
 
     public static final void main(String[] args) throws IOException {
+        
         String name = "main";
-
+        ui scene = new ui();
+        scene.StartUi();
+        
         //create the thread pool with dynamic number of threads
         ExecutorService executor = Executors.newCachedThreadPool();
         //create and execute NTHREAD
@@ -99,8 +103,17 @@ public class Main extends Application{
        
         for (int i = 0; i < NTHREADS; i++) {
             k++;
+             long startTime = System.nanoTime();
             executor.execute(new AddNode());
+            long endTime = System.nanoTime();
+            long delay = endTime - startTime;
+            addTime += delay;
+            //display delay  
         }
+        addTime /= addTime / NTHREADS; 
+        
+        //average add time against NTHREADS
+         System.out.println("Time to add a node: " + addTime * Math.pow(10, -9) + " seconds.");
         //no more threads created
         executor.shutdown();
 
@@ -127,10 +140,6 @@ public class Main extends Application{
         launch();
        
     }
-
-    
-    
-    
     
     //implement the runnable
     private static class AddNode implements Runnable {
@@ -138,17 +147,12 @@ public class Main extends Application{
         //private Timer timer = new Timer(1000, new TimerListener());
         @Override
         public void run() {
-            long startTime = System.nanoTime();
+           
             root.add((int) (100 * Math.random()));
             //stop timerstartTime = System.nanoTime();
-            long endTime = System.nanoTime();
-            long delay = endTime - startTime;
-            addTime += delay;
-            //display delay
-            System.out.println("Time to add a node: " + delay * Math.pow(10, -9) + " seconds.");
+            
 
         }
-
         /*class TimerListener implements ActionListener{
          @Override
          public void actionPerformed(ActionEvent event){
