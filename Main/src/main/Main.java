@@ -49,14 +49,18 @@ public class Main extends Application{
   public final static int NTHREADS = 50;   
   public static long addTime = 0 ;
     
-    
+    //Création du graphe
  @Override public void start(Stage stage) {
+     
         stage.setTitle("Line Chart Sample");
         //defining the axes
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
+      
+
+
         xAxis.setLabel("Number of Thread");
-        yAxis.setLabel("Adding time");
+        yAxis.setLabel("Adding time (seconds)");
         //creating the chart
         final LineChart<Number,Number> lineChart = 
                 new LineChart<Number,Number>(xAxis,yAxis);
@@ -64,9 +68,11 @@ public class Main extends Application{
         lineChart.setTitle("Graphe du temps d'ajout des noeuds");
         //defining a series
         XYChart.Series series = new XYChart.Series();
-        series.setName("");
-        //populating the series with data
-        series.getData().add(new XYChart.Data(NTHREADS, addTime));
+        //series.setName("");
+        
+        //Rajoute des points. Nombre de Threads en abscisse et temps d'ajout total en ordonnée
+        
+        series.getData().add(new XYChart.Data(NTHREADS, addTime*Math.pow(10, -9)));
         /*series.getData().add(new XYChart.Data(2, 14));
         series.getData().add(new XYChart.Data(3, 15));
         series.getData().add(new XYChart.Data(4, 24));
@@ -149,12 +155,7 @@ public class Main extends Application{
 
         }
 
-        /*class TimerListener implements ActionListener{
-         @Override
-         public void actionPerformed(ActionEvent event){
-           
-         }
-         }*/
+        
     }
 
 }
