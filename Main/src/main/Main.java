@@ -45,9 +45,9 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
     
-  private static final BinarySearchTree<Integer> root = new BinarySearchTree<>();
+  public static final BinarySearchTree<Integer> root = new BinarySearchTree<>();
   public final static int NTHREADS = 50;   
-  public static long addTime = 0 ;
+  static long addTime = 0 ;
     
     //Création du graphe
  @Override public void start(Stage stage) {
@@ -73,17 +73,9 @@ public class Main extends Application{
         //Rajoute des points. Nombre de Threads en abscisse et temps d'ajout total en ordonnée
         
         series.getData().add(new XYChart.Data(NTHREADS, addTime*Math.pow(10, -9)));
-        /*series.getData().add(new XYChart.Data(2, 14));
-        series.getData().add(new XYChart.Data(3, 15));
-        series.getData().add(new XYChart.Data(4, 24));
-        series.getData().add(new XYChart.Data(5, 34));
-        series.getData().add(new XYChart.Data(6, 36));
-        series.getData().add(new XYChart.Data(7, 22));
-        series.getData().add(new XYChart.Data(8, 45));
-        series.getData().add(new XYChart.Data(9, 43));
-        series.getData().add(new XYChart.Data(10, 17));
-        series.getData().add(new XYChart.Data(11, 29));
-        series.getData().add(new XYChart.Data(12, 25));*/
+        
+        
+        
         
         Scene scene  = new Scene(lineChart,800,600);
         lineChart.getData().add(series);
@@ -97,8 +89,10 @@ public class Main extends Application{
 
     public static final void main(String[] args) throws IOException {
         String name = "main";
-
-        //create the thread pool with dynamic number of threads
+        ui scene = new ui();
+        scene.StartUi();
+        
+        /*//create the thread pool with dynamic number of threads
         ExecutorService executor = Executors.newCachedThreadPool();
         //create and execute NTHREAD
         int k = 0;
@@ -108,7 +102,7 @@ public class Main extends Application{
             executor.execute(new AddNode());
         }
         //no more threads created
-        executor.shutdown();
+        executor.shutdown();*/
 
         //draw the pdf
         try{
@@ -133,13 +127,9 @@ public class Main extends Application{
         launch();
        
     }
-
-    
-    
-    
     
     //implement the runnable
-    private static class AddNode implements Runnable {
+    public static class AddNode implements Runnable {
 
         //private Timer timer = new Timer(1000, new TimerListener());
         @Override
