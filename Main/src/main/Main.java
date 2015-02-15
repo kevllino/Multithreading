@@ -91,7 +91,9 @@ public class Main extends Application{
 
     public static final void main(String[] args) throws IOException {
         String name = "main";
-
+        ui scene = new ui();
+        scene.StartUi();
+        
         //create the thread pool with dynamic number of threads
         ExecutorService executor = Executors.newCachedThreadPool();
         //create and execute NTHREAD
@@ -127,10 +129,6 @@ public class Main extends Application{
         launch();
        
     }
-
-    
-    
-    
     
     //implement the runnable
     private static class AddNode implements Runnable {
@@ -148,7 +146,6 @@ public class Main extends Application{
             System.out.println("Time to add a node: " + delay * Math.pow(10, -9) + " seconds.");
 
         }
-
         /*class TimerListener implements ActionListener{
          @Override
          public void actionPerformed(ActionEvent event){
