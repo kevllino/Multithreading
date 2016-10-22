@@ -1,2 +1,2 @@
 #Multithreading
-# Machine-Learning---Text-Categorization-
+Toy project in Java to understand multithreading. 
